@@ -1,0 +1,18 @@
+pipeline {
+  agent any
+ 
+  stages {
+    stage('Clone git') {
+      steps {
+        git 'https://github.com/cmelgreen/PersonalSite'
+      }
+    }
+    
+    stage('build') {
+        steps {
+            sh 'npm run build'
+        }
+    }
+    
+  }
+}
