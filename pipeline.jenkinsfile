@@ -1,11 +1,6 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:latest' 
-            args '-p 3000:3000' 
-        }
-    }
-
+    agent any
+    
     stages {
         stage('Clone git') {
             steps {
@@ -13,16 +8,9 @@ pipeline {
             }
         }
 
-        stage('Install') { 
-            steps {
-                sh 'npm cache clear --verbose'
-                sh 'npm install react react-scripts react-dom --verbose' 
-            }
-        }
-
         stage('Build') { 
             steps {
-                sh 'npm run build'
+                sh 'npm run-script build'
             }
         }
     }
