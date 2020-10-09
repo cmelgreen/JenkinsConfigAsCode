@@ -2,7 +2,7 @@ FROM jenkins/jenkins:latest
 
 USER root
 
-RUN curl https://deb.nodesource.com/setup_14.x | bash && apt-get install nodejs && npm install react react-scripts react-dom
+RUN curl https://deb.nodesource.com/setup_14.x | bash && apt-get install nodejs && npm install -g react react-scripts react-dom
 
 USER jenkins
 
