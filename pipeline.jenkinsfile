@@ -15,7 +15,8 @@ pipeline {
 
         stage('Install') { 
             steps {
-                sh 'npm install' 
+                sh 'npm cache clear --verbose'
+                sh 'npm install react react-scripts react-dom --verbose' 
             }
         }
 
