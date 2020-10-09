@@ -8,6 +8,8 @@ pipeline {
             }
         }
 
+
+
         stage('Build') { 
             steps {
                 sh 'npm run-script build'
@@ -15,3 +17,9 @@ pipeline {
         }
     }
 }
+
+        stage('Copy packages') {
+            steps {
+                sh 'copy /usr/lib/node_modules /var/jenkins_home/workspace/npm/node_modules'
+            }
+        }
