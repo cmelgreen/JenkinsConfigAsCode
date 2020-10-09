@@ -13,4 +13,6 @@ USER jenkins
 ENV CASC_JENKINS_CONFIG=https://raw.githubusercontent.com/cmelgreen/JenkinsConfigAsCode/master/config.yml
 ENV JAVA_OPTS "-Djenkins.install.runSetupWizard=false ${JAVA_OPTS:-}"
 
-RUN /usr/local/bin/install-plugins.sh configuration-as-code git workflow-aggregator docker-plugin docker-workflow nodejs
+#docker-plugin docker-workflow
+
+RUN /usr/local/bin/install-plugins.sh configuration-as-code git workflow-aggregator nodejs
