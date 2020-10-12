@@ -8,18 +8,17 @@ pipeline {
             }
         }
 
+        stage('Install') { 
+            steps {
+                sh 'yarn add react react-scripts react-dom'
+            }
+        }
 
 
         stage('Build') { 
             steps {
-                sh 'npm run-script build'
+                sh 'yarn build'
             }
         }
     }
 }
-
-        stage('Copy packages') {
-            steps {
-                sh 'copy /usr/lib/node_modules /var/jenkins_home/workspace/npm/node_modules'
-            }
-        }
