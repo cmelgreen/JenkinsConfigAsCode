@@ -1,5 +1,6 @@
+properties([pipelineTriggers([githubPush()])])
+
 pipeline {
-    agent any
     agent {
         docker { image 'node:14-alpine' }
     }
@@ -13,7 +14,7 @@ pipeline {
 
         stage('Install') { 
             steps {
-                sh 'yarn add react react-scripts react-dom'
+                sh 'yarn install'
             }
         }
 

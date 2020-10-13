@@ -5,3 +5,27 @@ jenkins:
       users:
        - id: admin
          password: admin
+
+jobs:
+  - script: > 
+      pipelineJob('yarn-docker-dsl') {
+
+        def repo = 'https://github.com/cmelgreen/PersonalSite'
+      
+        triggers {
+          githubPush()
+        }
+        description("Pipeline for $repo")
+      
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote { url(repo) }
+                scriptPath('pipeline.jenkinsfile')
+                extensions { }
+              }
+            }
+          }
+        }
+      }
