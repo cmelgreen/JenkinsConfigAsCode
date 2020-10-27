@@ -8,7 +8,7 @@ jenkins:
 
 jobs:
   - script: > 
-      pipelineJob('yarn-docker-dsl') {
+      pipelineJob('frontend') {
 
         def repo = 'https://github.com/cmelgreen/PersonalSite'
       
