@@ -68,6 +68,8 @@ pipeline {
 
         stage('Install') { 
             steps {
+                sh 'yarn config delete https-proxy'
+                sh 'yarn config delete proxy'
                 sh 'yarn install'
             }
         }
