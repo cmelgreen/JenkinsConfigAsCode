@@ -1,62 +1,8 @@
-// properties([pipelineTriggers([githubPush()])])
-
-// pipeline {
-//     agent {
-//         docker { image 'node:14-alpine' }
-//     }
-    
-//     stages {
-//         stage('Clone git') {
-//             steps {
-//                 git 'https://github.com/cmelgreen/PersonalSite'
-//             }
-//         }
-
-//         stage('Install') { 
-//             steps {
-//                 sh 'yarn install'
-//             }
-//         }
-
-//         stage('Build') { 
-//             steps {
-//                 sh 'yarn build'
-//             }
-//         }
-//     }
-    
-//     post {
-//         success {
-//             stage('Deploy') {
-//                 step([
-//                     $class: 'AWSCodeDeployPublisher', 
-//                     applicationName: 'server_cd_app', 
-//                     awsAccessKey: '', 
-//                     awsSecretKey: <object of type hudson.util.Secret>, 
-//                     deploymentGroupAppspec: false, 
-//                     deploymentGroupName: 'server_cd_group', 
-//                     deploymentMethod: 'deploy', 
-//                     excludes: '', 
-//                     iamRoleArn: '', 
-//                     includes: '**', 
-//                     proxyHost: '', 
-//                     proxyPort: 0,
-//                     region: 'us-west-2', 
-//                     s3bucket: 'server-s3-bucket', 
-//                     s3prefix: '', 
-//                     subdirectory: '', 
-//                     versionFileName: '', 
-//                     waitForCompletion: false])
-//             }
-//         }
-//     }
-// }
-
 properties([pipelineTriggers([githubPush()])])
 
 pipeline {
     agent {
-        docker { image 'node:14-alpine' }
+        docker { image 'node:15-alpine' }
     }
     
     stages {
@@ -66,17 +12,41 @@ pipeline {
             }
         }
 
-        stage('Install w/ cleared proxy') { 
+        stage('Install') { 
             steps {
-                sh 'yarn config delete https-proxy'
-                sh 'yarn config delete proxy'
-                sh 'yarn'
+                sh 'yarn install'
             }
         }
 
         stage('Build') { 
             steps {
                 sh 'yarn build'
+            }
+        }
+    }
+    
+    post {
+        success {
+            stage('Deploy') {
+                step([
+                    $class: 'AWSCodeDeployPublisher', 
+                    applicationName: 'server_cd_app', 
+                    awsAccessKey: '', 
+                    awsSecretKey: <object of type hudson.util.Secret>, 
+                    deploymentGroupAppspec: false, 
+                    deploymentGroupName: 'server_cd_group', 
+                    deploymentMethod: 'deploy', 
+                    excludes: '', 
+                    iamRoleArn: '', 
+                    includes: '**', 
+                    proxyHost: '', 
+                    proxyPort: 0,
+                    region: 'us-west-2', 
+                    s3bucket: 'server-s3-bucket', 
+                    s3prefix: '', 
+                    subdirectory: '', 
+                    versionFileName: '', 
+                    waitForCompletion: false])
             }
         }
     }
