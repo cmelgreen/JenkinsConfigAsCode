@@ -8,7 +8,7 @@ jenkins:
 
 jobs:
   - script: > 
-      pipelineJob('frontend') {
+      pipelineJob('PersonalSite') {
 
         def repo = 'https://github.com/cmelgreen/PersonalSite'
       
@@ -29,25 +29,4 @@ jobs:
           }
         }
       }
-  - script: > 
-      pipelineJob('backend') {
 
-        def repo = 'https://github.com/cmelgreen/PersonalSiteServer'
-      
-        triggers {
-          githubPush()
-        }
-        description("Pipeline for $repo")
-      
-        definition {
-          cpsScm {
-            scm {
-              git {
-                remote { url(repo) }
-                scriptPath('pipeline.jenkinsfile')
-                extensions { }
-              }
-            }
-          }
-        }
-      }
